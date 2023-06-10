@@ -78,6 +78,36 @@ exports.get_scrapped_hackathons = async( req,res,next)=>{
       }
 }
 
-exports.updateBookMarks = async( req,res,next)=>{
+exports.incrementBookMarks = async( req,res,next)=>{
+const {_id} = req.body
+const hackathon = await scrapped_hackathons.findById(_id)
+const updatedHackathon = await scrapped_hackathons.findByIdAndUpdate(
+  _id,
+  { bookMarkCount: hackathon.bookMarkCount +1 },
+  { new: true }
+);
 
+res.status(200).json({message:"sucess"})
 }
+
+exports.decrementBookMarks = async( req,res,next)=>{
+  const {_id} = req.body
+  const hackathon = await scrapped_hackathons.findById(_id)
+  if(hackathon.bookMarkCount-1 ==0){
+    const updatedHackathon = await scrapped_hackathons.findByIdAndUpdate(
+      _id,
+      { bookMarkCount: 0},
+      { new: true }
+    );
+  }else{
+    const updatedHackathon = await scrapped_hackathons.findByIdAndUpdate(
+      _id,
+      { bookMarkCount: hackathon.bookMarkCount -1 },
+      { new: true }
+    );
+  }
+  
+  
+  
+  res.status(200).json({message:"sucess"})
+  }

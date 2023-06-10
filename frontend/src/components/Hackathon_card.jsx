@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
-const Hackathon_card = ({name, date, link,source,isBookmarked, bookMarkCount,toggleBookmark}) => {
+const Hackathon_card = ({_id,name, date, link,source,isBookmarked, bookMarkCount,toggleBookmark}) => {
   
 
   const handleBookmarkToggle = () => {
-    toggleBookmark(name,link,date,source,bookMarkCount);
+    toggleBookmark(_id,name,link,date,source,bookMarkCount);
   };
   // console.log(name,isBookmarked)
 

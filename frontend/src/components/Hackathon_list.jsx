@@ -20,7 +20,7 @@ const Hackthon_list = () => {
           if (localStorageHackathon) {
             return {
               ...apiHackathon,
-              bookMarkCount: localStorageHackathon.bookMarkCount,
+              // bookMarkCount: localStorageHackathon.bookMarkCount,
               isBookMarked: true
             };
           }
@@ -37,13 +37,16 @@ const Hackthon_list = () => {
     fetchHackathons();
   }, []);
   
+  
 
  
-  const toggleBookmark = (hackathonName,link,date,source,bookMarkCount) => {
+  const toggleBookmark = (_id,hackathonName,link,date,source,bookMarkCount) => {
     
     const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
   
     const isAlreadyBookmarked = bookmarks.some(item => item.name === hackathonName);
+
+    
   
     if (isAlreadyBookmarked) {
       // Remove the hackathon from bookmarks
@@ -55,7 +58,11 @@ const Hackthon_list = () => {
         }
         return hackathon;
       });
-      setHackathons(updatedHackathons);
+      Axios.post("http://localhost:5000/api/v1/decrementBookMarkCount",{_id:_id})
+    .then((res)=>{console.log(res)
+      setHackathons(updatedHackathons);})
+    .catch((error)=>{console.log(error)})
+      
     } else {
       // Add the hackathon to bookmarks
       const newBookmark = { name: hackathonName, link, date, source,bookMarkCount:bookMarkCount+1, isBookmarked: true };
@@ -67,7 +74,11 @@ const Hackthon_list = () => {
         }
         return hackathon;
       });
-      setHackathons(updatedHackathons);
+      Axios.post("http://localhost:5000/api/v1/incrementBookMarkCount",{_id:_id})
+    .then((res)=>{console.log(res)
+      setHackathons(updatedHackathons);})
+    .catch((error)=>{console.log(error)})
+      
     }
     
   };
@@ -84,7 +95,8 @@ const Hackthon_list = () => {
           isBookmarked={hackathon.isBookMarked}
           date={hackathon.date}
           source={hackathon.source}
-          toggleBookmark={toggleBookmark} />
+          toggleBookmark={toggleBookmark}
+          _id={hackathon._id} />
         ))
       }
      </div>
