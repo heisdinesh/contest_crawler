@@ -1,45 +1,12 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect,  useContext} from 'react'
 import Hackathon_card from './Hackathon_card'
 import Axios from "axios"
+import hackathonContext from '../context/hackathonContext'
 
 const Hackthon_list = () => {
- 
-  const [hackathons, setHackathons]=useState([])
-  useEffect(() => {
-    const fetchHackathons = async () => {
-      try {
-        const response = await Axios.get("http://localhost:5000/api/v1/allHackathons");
-        const apiHackathons = response.data.hackathons;
-        console.log(apiHackathons)
-        
-        const localStorageHackathons = JSON.parse(localStorage.getItem('bookmarks')) || [];
-        
-        const mergedHackathons = apiHackathons.map(apiHackathon => {
-          const localStorageHackathon = localStorageHackathons.find(h => h.name === apiHackathon.name);
-          
-          if (localStorageHackathon) {
-            return {
-              ...apiHackathon,
-              // bookMarkCount: localStorageHackathon.bookMarkCount,
-              isBookMarked: true
-            };
-          }
-          
-          return apiHackathon;
-        });
-        console.log("merged",mergedHackathons)
-        setHackathons(mergedHackathons);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    fetchHackathons();
-  }, []);
-  
-  
 
- 
+  const {hackathons,modifyHackathon} = useContext(hackathonContext)
+   
   const toggleBookmark = (_id,hackathonName,link,date,source,bookMarkCount) => {
     
     const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
@@ -60,7 +27,7 @@ const Hackthon_list = () => {
       });
       Axios.post("http://localhost:5000/api/v1/decrementBookMarkCount",{_id:_id})
     .then((res)=>{console.log(res)
-      setHackathons(updatedHackathons);})
+      modifyHackathon(updatedHackathons);})
     .catch((error)=>{console.log(error)})
       
     } else {
@@ -76,7 +43,7 @@ const Hackthon_list = () => {
       });
       Axios.post("http://localhost:5000/api/v1/incrementBookMarkCount",{_id:_id})
     .then((res)=>{console.log(res)
-      setHackathons(updatedHackathons);})
+      modifyHackathon(updatedHackathons);})
     .catch((error)=>{console.log(error)})
       
     }
@@ -85,7 +52,7 @@ const Hackthon_list = () => {
   
   return (
     <div >
-     <div className="flex flex-wrap gap-12">
+     <div className="px-4 items-center justify-center flex flex-wrap gap-12">
       {
         hackathons.map((hackathon)=>(
           <Hackathon_card
