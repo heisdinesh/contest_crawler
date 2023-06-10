@@ -5,32 +5,39 @@ import Axios from "axios"
 const Hackthon_list = () => {
  
   const [hackathons, setHackathons]=useState([])
-  useEffect(()=>{
-    Axios.get("http://localhost:5000/api/v1/allHackathons")
-    .then((res)=>{
-      // console.log(res.data.hackathons)
-      setHackathons(res.data.hackathons)
-    })
-    .catch((error)=>{
-      console.log(error)
-    })
-
-  },[])
   useEffect(() => {
-    // Retrieve bookmarks from local storage
-    const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
- 
-const updatedHackathons = hackathons.map(hackathon => {
-      const bookmark = bookmarks.find(item => item.name === hackathon.name);
-      if (bookmark) {
-        return { ...hackathon, isBookMarked: true, bookMarkCount: bookmark.bookMarkCount };
+    const fetchHackathons = async () => {
+      try {
+        const response = await Axios.get("http://localhost:5000/api/v1/allHackathons");
+        const apiHackathons = response.data.hackathons;
+        console.log(apiHackathons)
+        
+        const localStorageHackathons = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        
+        const mergedHackathons = apiHackathons.map(apiHackathon => {
+          const localStorageHackathon = localStorageHackathons.find(h => h.name === apiHackathon.name);
+          
+          if (localStorageHackathon) {
+            return {
+              ...apiHackathon,
+              bookMarkCount: localStorageHackathon.bookMarkCount,
+              isBookMarked: true
+            };
+          }
+          
+          return apiHackathon;
+        });
+        console.log("merged",mergedHackathons)
+        setHackathons(mergedHackathons);
+      } catch (error) {
+        console.log(error);
       }
-      return hackathon;
-    });
-// console.log(updatedHackathons)
-    setHackathons(updatedHackathons);
-   
-  }, []); 
+    };
+  
+    fetchHackathons();
+  }, []);
+  
+
  
   const toggleBookmark = (hackathonName,link,date,source,bookMarkCount) => {
     
