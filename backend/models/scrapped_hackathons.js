@@ -18,6 +18,10 @@ const scrapped_hackathons_schema = new Schema({
         type:String,
         required:true
     },
+    image:{
+        type:String,
+       
+    },
     isbookMarked:{
         type:Boolean,
         default:false

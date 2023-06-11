@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router()
 
 const {insert_scrapped_hackathons_devfolio, incrementBookMarks, get_scrapped_hackathons,decrementBookMarks} = require("../controllers/scrapped_hackathons")
+const {insert_scrapped_hackathons_hackerearth} = require("../controllers/hackerearth_hackathons")
 
 router.route('/devfolio').get(insert_scrapped_hackathons_devfolio)
-
+router.route('/hackerearth').get(insert_scrapped_hackathons_hackerearth)
 
 //get all the hackathons
 router.route('/allHackathons').get(get_scrapped_hackathons)
