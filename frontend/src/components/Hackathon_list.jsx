@@ -1,5 +1,6 @@
 import React, { useState, useEffect,  useContext} from 'react'
 import Hackathon_card from './Hackathon_card'
+import Telegram from "./Telegram.jsx"
 import Axios from "axios"
 import hackathonContext from '../context/hackathonContext'
 
@@ -69,6 +70,7 @@ const Hackthon_list = () => {
         ))
       }
      </div>
+     <Telegram />
     </div>
   )
 }

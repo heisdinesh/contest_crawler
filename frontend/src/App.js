@@ -1,6 +1,7 @@
 import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
 import { Hackathons, BookMarked, Home } from "./pages";
 import HackathonState from "./context/hackathonState";
+import Telegram from "./components/Telegram";
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
         
       </Route>
       <Route path="/hackathons/bookmarked" element={<BookMarked />}/>
-      
+     
     </Routes>
+    <Telegram />
    </Router>
    </div>
    </HackathonState>
