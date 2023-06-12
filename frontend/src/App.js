@@ -1,6 +1,5 @@
 import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
-import { Hackathons, BookMarked } from "./pages";
-import Bookmarked_hackathons from "./components/Bookmarked_hackathons";
+import { Hackathons, BookMarked, Home } from "./pages";
 import HackathonState from "./context/hackathonState";
 
 function App() {
@@ -9,6 +8,7 @@ function App() {
     <div className="bg-stone-50">
     <Router>
     <Routes>
+      <Route path="/" element={<Home />} />
       <Route path="/hackathons" element={<Hackathons />}>
         
       </Route>

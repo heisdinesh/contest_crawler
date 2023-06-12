@@ -26,7 +26,8 @@ const Hackthon_list = () => {
         return hackathon;
       });
       Axios.post("http://localhost:5000/api/v1/decrementBookMarkCount",{_id:_id})
-    .then((res)=>{console.log(res)
+    .then((res)=>{
+      // console.log(res)
       modifyHackathon(updatedHackathons);})
     .catch((error)=>{console.log(error)})
       
@@ -42,7 +43,8 @@ const Hackthon_list = () => {
         return hackathon;
       });
       Axios.post("http://localhost:5000/api/v1/incrementBookMarkCount",{_id:_id})
-    .then((res)=>{console.log(res)
+    .then((res)=>{
+      // console.log(res)
       modifyHackathon(updatedHackathons);})
     .catch((error)=>{console.log(error)})
       

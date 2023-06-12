@@ -52,7 +52,8 @@ const Bookmarked_hackathons = () => {
         return hackathon;
       });
       Axios.post("http://localhost:5000/api/v1/incrementBookMarkCount",{_id:_id})
-    .then((res)=>{console.log(res)
+    .then((res)=>{
+      // console.log(res)
       modifyHackathon(updatedHackathons);})
     .catch((error)=>{console.log(error)})
       
@@ -61,7 +62,7 @@ const Bookmarked_hackathons = () => {
   };
   return (
     <div >
-     <div className="h-screen flex flex-wrap gap-12">
+     <div className="h-screen flex flex-wrap md:gap-12">
       {
         bookMarked.map((hackathon)=>(
           <Hackathon_card
