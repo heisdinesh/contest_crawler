@@ -35,7 +35,7 @@ const Bookmarked_hackathons = () => {
         }
         return hackathon;
       });
-      Axios.post("http://localhost:5000/api/v1/decrementBookMarkCount",{_id:_id})
+      Axios.post("https://contest-crawler.vercel.app/api/v1/decrementBookMarkCount",{_id:_id})
     .then((res)=>{console.log(res)
       modifyHackathon(updatedHackathons);})
     .catch((error)=>{console.log(error)})
@@ -51,7 +51,7 @@ const Bookmarked_hackathons = () => {
         }
         return hackathon;
       });
-      Axios.post("http://localhost:5000/api/v1/incrementBookMarkCount",{_id:_id})
+      Axios.post("https://contest-crawler.vercel.app/api/v1/incrementBookMarkCount",{_id:_id})
     .then((res)=>{
       // console.log(res)
       modifyHackathon(updatedHackathons);})

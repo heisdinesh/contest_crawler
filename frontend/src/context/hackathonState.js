@@ -12,7 +12,7 @@ const modifyHackathon =(hack)=>{
 useEffect(() => {
     const fetchHackathons = async () => {
       try {
-        const response = await Axios.get("http://localhost:5000/api/v1/allHackathons");
+        const response = await Axios.get("https://contest-crawler.vercel.app/api/v1/allHackathons");
         const apiHackathons = response.data.hackathons;
         console.log(apiHackathons)
         
