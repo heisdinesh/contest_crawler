@@ -5,6 +5,9 @@ import Axios from "axios"
 import hackathonContext from '../context/hackathonContext'
 
 const Hackthon_list = () => {
+  const {searchResults,searchTerm}= useContext(hackathonContext);
+  // console.log(searchTerm.length)
+
 
   const {hackathons,modifyHackathon} = useContext(hackathonContext)
    
@@ -56,19 +59,21 @@ const Hackthon_list = () => {
   return (
     <div >
      <div  className="px-4 items-center justify-center flex flex-wrap gap-12">
-      {
-        hackathons.map((hackathon)=>(
+     {(searchTerm && searchTerm.length > 0
+          ? searchResults
+          : hackathons
+        ).map((hackathon) => (
           <Hackathon_card
-          name={hackathon.name}
-          link={hackathon.link}
-          bookMarkCount={hackathon.bookMarkCount}
-          isBookmarked={hackathon.isBookMarked}
-          date={hackathon.date}
-          source={hackathon.source}
-          toggleBookmark={toggleBookmark}
-          _id={hackathon._id} />
-        ))
-      }
+            name={hackathon.name}
+            link={hackathon.link}
+            bookMarkCount={hackathon.bookMarkCount}
+            isBookmarked={hackathon.isBookMarked}
+            date={hackathon.date}
+            source={hackathon.source}
+            toggleBookmark={toggleBookmark}
+            _id={hackathon._id}
+          />
+        ))}
      </div>
      <Telegram />
     </div>

@@ -35,7 +35,7 @@ async function checkIfHackathonExists(name, link) {
         const nameElement = element.querySelector('h2');
         const imageElement = element.querySelector('img.custom-alt');
         const dateElement = element.querySelector('.seperate_box:nth-child(3)'|| '.seperate_box:nth-child(2)');
-        const id = element.id.replace('opp_', '');
+        const id = element.id.replace('opp_', ''); 
         const link = `https://unstop.com/competitions/${id}`;
 
         const name = nameElement?.textContent.trim() || '';

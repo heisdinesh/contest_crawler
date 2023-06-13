@@ -1,14 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import HackathonContext from "./hackathonContext";
 import Axios from 'axios'
 
 const HackathonState =(props)=>{
 
 const [hackathons, setHackathons] = useState([])
+const [searchTerm, setSearchTerm] = useState("")
+const [searchResults, setSearchResults] = useState([]);
 
 const modifyHackathon =(hack)=>{
     setHackathons(hack)
 }
+
+
+
+const handleSearch = (term)=>{
+  setSearchTerm(term)
+  console.log(term)
+  if(searchTerm !=""){
+    const newHackathonList = hackathons.filter((hackathon)=>{
+      return Object.values(hackathon)
+      .join(" ")
+      .toLocaleLowerCase()
+      .includes(searchTerm.toLocaleLowerCase())
+    })
+    setSearchResults(newHackathonList)
+    // console.log(newHackathonList)
+  }
+  else{
+    setSearchResults(hackathons)
+  }
+}
+
+
 useEffect(() => {
     const fetchHackathons = async () => {
       try {
@@ -42,7 +66,7 @@ useEffect(() => {
   }, []);
 
     return(
-        <HackathonContext.Provider value={{hackathons,modifyHackathon}}>
+        <HackathonContext.Provider value={{hackathons,modifyHackathon, searchResults, handleSearch,searchTerm}}>
             {props.children }
         </HackathonContext.Provider>
     )
