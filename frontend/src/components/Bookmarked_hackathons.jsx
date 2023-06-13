@@ -7,12 +7,21 @@ import hackathonContext from '../context/hackathonContext'
 const Bookmarked_hackathons = () => {
   const {hackathons,modifyHackathon} = useContext(hackathonContext)
   const [bookMarked,setBookMarked] =useState([])
+  const [isPresent, setIsPresent] =useState(false)
   useEffect(()=>{
     
 
     const filtred = hackathons.filter((item)=> item.isBookMarked)
-    console.log(filtred)
+    // console.log(filtred)
     setBookMarked(filtred)
+    // console.log("first")
+    // console.log(filtred.length)
+    if(filtred.length !=0){
+      setIsPresent(true)
+    }else{
+      setIsPresent(false)
+    }
+   
     
   },[hackathons])
 
@@ -36,7 +45,7 @@ const Bookmarked_hackathons = () => {
         return hackathon;
       });
       Axios.post("https://contest-crawler.vercel.app/api/v1/decrementBookMarkCount",{_id:_id})
-    .then((res)=>{console.log(res)
+    .then((res)=>{
       modifyHackathon(updatedHackathons);})
     .catch((error)=>{console.log(error)})
       
@@ -61,22 +70,29 @@ const Bookmarked_hackathons = () => {
     
   };
   return (
-    <div >
-     <div className="h-screen flex flex-wrap md:gap-12">
+    <div className="h-screen" >
       {
-        bookMarked.map((hackathon)=>(
-          <Hackathon_card
-          name={hackathon.name}
-          link={hackathon.link}
-          bookMarkCount={hackathon.bookMarkCount}
-          isBookmarked={hackathon.isBookMarked}
-          date={hackathon.date}
-          source={hackathon.source}
-          toggleBookmark={toggleBookmark}
-          _id={hackathon._id} />
-        ))
+        isPresent ? 
+        <div className="h-screen flex flex-wrap md:gap-12">
+        {
+          bookMarked.map((hackathon)=>(
+            <Hackathon_card
+            name={hackathon.name}
+            link={hackathon.link}
+            bookMarkCount={hackathon.bookMarkCount}
+            isBookmarked={hackathon.isBookMarked}
+            date={hackathon.date}
+            source={hackathon.source}
+            toggleBookmark={toggleBookmark}
+            _id={hackathon._id} />
+          ))
+        }
+       </div> : 
+       <div>
+        <p>No BookMarks yet</p>
+       </div>
       }
-     </div>
+    
     </div>
   )
 }

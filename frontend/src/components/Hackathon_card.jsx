@@ -11,11 +11,11 @@ const Hackathon_card = ({_id,name, date, link,source,isBookmarked, bookMarkCount
   // console.log(name,isBookmarked)
 
   return (
-    <div>
-      <div className="group border-2 hover:border-primary p-4 w-80 rounded-lg flex flex-col gap-6 shadow-md bg-white">
+    <div className="">
+      <div className="group border-2 hover:border-primary p-4 w-80 rounded-lg flex flex-col 	 gap-6 shadow-md bg-white">
         <div className="flex justify-between  items-center ">
-        <div>
-          <p className="text-3xl  group-hover:text-primary font-semibold">{name}</p>
+        <div className=''>
+          <p className="text-3xl  group-hover:text-primary font-semibold ">{name}</p>
           <p className="text-md text-stone-400">{source}</p>
         </div>
         <div className="w-10 h-10 hover:border-primary rounded-3xl p-3 cursor-pointer text-primary font-semibold  bg-slate-100" >

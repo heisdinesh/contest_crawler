@@ -14,7 +14,7 @@ useEffect(() => {
       try {
         const response = await Axios.get("https://contest-crawler.vercel.app/api/v1/allHackathons");
         const apiHackathons = response.data.hackathons;
-        console.log(apiHackathons)
+        // console.log(apiHackathons)
         
         const localStorageHackathons = JSON.parse(localStorage.getItem('bookmarks')) || [];
         
@@ -31,7 +31,7 @@ useEffect(() => {
           
           return apiHackathon;
         });
-        console.log("merged",mergedHackathons)
+        // console.log("merged",mergedHackathons)
         modifyHackathon(mergedHackathons);
       } catch (error) {
         console.log(error);
