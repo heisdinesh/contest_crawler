@@ -58,7 +58,7 @@ const Hackthon_list = () => {
   
   return (
     <div >
-     <div  className="px-4 items-center justify-center flex flex-wrap gap-12">
+     <div  className=" px-4 items-center justify-center flex flex-wrap gap-12 ">
      {(searchTerm && searchTerm.length > 0
           ? searchResults
           : hackathons

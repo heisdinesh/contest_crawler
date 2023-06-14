@@ -12,7 +12,7 @@ const Hackathon_card = ({_id,name, date, link,source,isBookmarked, bookMarkCount
 
   return (
     <div className="">
-      <div className="group border-2 hover:border-primary p-4 w-80 rounded-lg flex flex-col 	 gap-6 shadow-md bg-white">
+      <div className="  group border-2 hover:border-primary p-4 w-80 rounded-lg flex flex-col 	 gap-6 shadow-md bg-white">
         <div className="flex justify-between  items-center ">
         <div className=''>
           <p className="text-3xl  group-hover:text-primary font-semibold ">{name}</p>
